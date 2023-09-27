@@ -3,7 +3,7 @@ from psycopg2 import Error
 from db_connection import connection
 
 create_table_group = """
-CREATE TABLE IF NOT EXISTS group (
+CREATE TABLE IF NOT EXISTS groupstud (
   id SERIAL PRIMARY KEY,
   name VARCHAR(8)
 );
