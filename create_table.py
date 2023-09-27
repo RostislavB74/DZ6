@@ -3,9 +3,9 @@ from psycopg2 import Error
 from db_connection import connection
 
 create_table_group = """
-CREATE TABLE IF NOT EXISTS groupname (
+CREATE TABLE IF NOT EXISTS group (
   id SERIAL PRIMARY KEY,
-  groupname VARCHAR(8)
+  name VARCHAR(8)
 );
 
 """
@@ -26,7 +26,7 @@ CREATE TABLE IF NOT EXISTS course (
 if __name__ == '__main__':
     with connection() as conn:
         c = conn.cursor()
-        # c.execute(create_table_group)
+        c.execute(create_table_group)
         # c.execute(create_table_facultet)
-        c.execute(create_table_course)
+        #c.execute(create_table_course)
         c.close()
