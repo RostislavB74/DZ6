@@ -27,14 +27,15 @@ items = [
     "Теорія ймовірності"
 ]
 
-groups = ["АКФ 101", "АКФ 201", "АКФ 301", "АКФ 401", "АКФ 501",
-          "АКФ 102", "АКФ 202", "АКФ 302", "АКФ 402", "АКФ 502",
-          "АКФ 103", "АКФ 203", "АКФ 303", "АКФ 403", "АКФ 503"
-          ]
+# groups = ["АКФ 101", "АКФ 201", "АКФ 301", "АКФ 401", "АКФ 501",
+#           "АКФ 102", "АКФ 202", "АКФ 302", "АКФ 402", "АКФ 502",
+#           "АКФ 103", "АКФ 203", "АКФ 303", "АКФ 403", "АКФ 503"
+#           ]
 # teachers = ["Тарасенко Т.В.", "Богдан С.Ю.", "Агеєв С.Є.", "Орденов С.С."]
+groups = ["АКФ 101", "АКФ 201", "АКФ 301"]
 NUMBER_TEACHERS = 15
-NUMBER_STUDENTS = 300
-fake = Faker()
+NUMBER_STUDENTS = 50
+fake = Faker('uk-UA')
 connect = sqlite3.connect("hw6.db")
 cur = connect.cursor()
 
@@ -92,7 +93,7 @@ if __name__ == '__main__':
         seed_teachers()
         seed_items()
         seed_groups()
-        # seed_grades()
+        seed_grades()
         seed_students()
         connect.commit()
     except sqlite3.Error as error:
