@@ -92,7 +92,7 @@ if __name__ == '__main__':
         seed_teachers()
         seed_items()
         seed_groups()
-        seed_grades()
+        # seed_grades()
         seed_students()
         connect.commit()
     except sqlite3.Error as error:
