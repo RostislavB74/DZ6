@@ -63,8 +63,8 @@ def seed_groups():
 
 if __name__ == '__main__':
     try:
-        # seed_teachers()
-        # seed_items()
+        seed_teachers()
+        seed_items()
         seed_groups()
         seed_students()
         connect.commit()
