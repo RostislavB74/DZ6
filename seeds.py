@@ -50,15 +50,25 @@ def seed_items():
                     for _ in range(len(items)))))
 
 
-# def seed_students():
-#     teachers = [fake.name() for _ in range(NUMBER_TEACHERS)]
-#     sql = "INSERT INTO students(fullname) VALUES(?);"
-#     cur.executemany(sql, zip(teachers,))
+def seed_students():
+    students = [fake.name() for _ in range(NUMBER_STUDENTS)]
+    sql = "INSERT INTO students (fullname, group_id) VALUES(?, ?);"
+    cur.executemany(sql, zip(students, iter(randint(1, len(groups))
+                    for _ in range(len(students)))))
 
+
+def seed_groups():
+    sql = "INSERT INTO groups (name) VALUES(?);"
+    cur.executemany(sql, zip(groups,))
 
 if __name__ == '__main__':
     try:
-        seed_teachers()
-        seed_items()
+        # seed_teachers()
+        # seed_items()
+        seed_groups()
+        seed_students()
+        connect.commit()
     except sqlite3.Error as error:
         pprint(error)
+    finally:
+        connect.close()
