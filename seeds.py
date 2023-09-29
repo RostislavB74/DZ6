@@ -1,9 +1,8 @@
 from datetime import datetime, date, timedelta
 from faker import Faker
-from random import randint, choice
+from random import randint
 import sqlite3
 from pprint import pprint
-from tqdm import tqdm
 
 items = [
     "Вища математика",
