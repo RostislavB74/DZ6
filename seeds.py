@@ -27,14 +27,14 @@ items = [
     "Теорія ймовірності"
 ]
 
-# groups = ["АКФ 101", "АКФ 201", "АКФ 301", "АКФ 401", "АКФ 501",
-#           "АКФ 102", "АКФ 202", "АКФ 302", "АКФ 402", "АКФ 502",
-#           "АКФ 103", "АКФ 203", "АКФ 303", "АКФ 403", "АКФ 503"
-#           ]
+groups = ["АКФ 101", "АКФ 201", "АКФ 301", "АКФ 401", "АКФ 501",
+          "АКФ 102", "АКФ 202", "АКФ 302", "АКФ 402", "АКФ 502",
+          "АКФ 103", "АКФ 203", "АКФ 303", "АКФ 403", "АКФ 503"
+          ]
 # teachers = ["Тарасенко Т.В.", "Богдан С.Ю.", "Агеєв С.Є.", "Орденов С.С."]
-groups = ["АКФ 101", "АКФ 201", "АКФ 301"]
+# groups = ["АКФ 101", "АКФ 201", "АКФ 301"]
 NUMBER_TEACHERS = 15
-NUMBER_STUDENTS = 50
+NUMBER_STUDENTS = 150
 fake = Faker('uk-UA')
 connect = sqlite3.connect("hw6.db")
 cur = connect.cursor()
@@ -66,25 +66,26 @@ def seed_groups():
 
 def seed_grades():
     start_date = datetime.strptime("2022-09-01", "%Y-%m-%d")
-    end_date = datetime.strptime("2022-12-25", "%Y-%m-%d")
-    sql = "INSERT INTO grades (items_id, students_id, grade, date_of) VALUES(?, ?, ?, ?);"
+    end_date = datetime.strptime("2023-06-15", "%Y-%m-%d")
+    sql = "INSERT INTO grades(items_id, student_id, grade, date_of) VALUES(?, ?, ?, ?);"
 
-    def get_list_date(start: date, end: date):
+    def get_list_date(start: date, end: date) -> list[date]:
         result = []
         current_date = start
-        while current_date < end:
+        while current_date <= end:
             if current_date.isoweekday() < 6:
                 result.append(current_date)
-                current_date += timedelta(1)
+            current_date += timedelta(1)
         return result
 
     list_dates = get_list_date(start_date, end_date)
+
     grades = []
-    for day in tqdm(list_dates):
-        random_items = randint(1, len(items))
-        random_student = [randint(1, len(NUMBER_STUDENTS)) for _ in range(5)]
-        for student in tqdm(random_student):
-            grades.append((random_items, student, randint(1, 12), day.date()))
+    for day in list_dates:
+        random_item = randint(1, len(items))
+        random_students = [randint(1, NUMBER_STUDENTS) for _ in range(5)]
+        for student in random_students:
+            grades.append((random_item, student, randint(1, 12), day.date()))
     cur.executemany(sql, grades)
 
 
